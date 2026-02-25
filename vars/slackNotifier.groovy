@@ -15,28 +15,40 @@
 //   }
 // }
 
-def call(Map config = [:]) {
-    def buildResult = config.buildResult ?: currentBuild.result ?: 'UNKNOWN'
-    def color
-    def status
+// def call(Map config = [:]) {
+//     def buildResult = config.buildResult ?: currentBuild.result ?: 'UNKNOWN'
+//     def color
+//     def status
     
-    switch(buildResult) {
-        case 'SUCCESS':
-            color = '#00FF00'
-            status = '✅ SUCCESSFUL'
-            break
-        case 'FAILURE':
-            color = '#FF0000'
-            status = '❌ FAILED'
-            break
-        case 'UNSTABLE':
-            color = '#FFFF00'
-            status = '⚠️ UNSTABLE'
-            break
-        default:
-            color = '#808080'
-            status = '❓ UNKNOWN'
-    }
+//     switch(buildResult) {
+//         case 'SUCCESS':
+//             color = '#00FF00'
+//             status = '✅ SUCCESSFUL'
+//             break
+//         case 'FAILURE':
+//             color = '#FF0000'
+//             status = '❌ FAILED'
+//             break
+//         case 'UNSTABLE':
+//             color = '#FFFF00'
+//             status = '⚠️ UNSTABLE'
+//             break
+//         default:
+//             color = '#808080'
+//             status = '❓ UNKNOWN'
+//     }
+    
+//     slackSend(
+//         color: color,
+//         message: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+//     )
+// }
+
+
+def call(Map config = [:]) {
+    def buildResult = config.buildResult ?: currentBuild.result
+    def color = buildResult == 'SUCCESS' ? '#00FF00' : '#FF0000'
+    def status = buildResult == 'SUCCESS' ? 'SUCCESSFUL' : 'FAILED'
     
     slackSend(
         color: color,
