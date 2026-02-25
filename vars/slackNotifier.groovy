@@ -1,45 +1,40 @@
 #!/usr/bin/env groovy
 
-def call(String buildResult) {
-  if ( buildResult == "SUCCESS" ) {
-    slackSend color: "good", message: "CONGRATULATION: Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful ! more info ${env.BUILD_URL}"
-  }
-  else if( buildResult == "FAILURE" ) { 
-    slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was failed ! more info ${env.BUILD_URL}"
-  }
-  else if( buildResult == "UNSTABLE" ) { 
-    slackSend color: "warning", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was unstable ! more info ${env.BUILD_URL}"
-  }
-  else {
-    slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} its result was unclear ! more info ${env.BUILD_URL}"	
-  }
-}
-
-// def call(Map config = [:]) {
-//     def buildResult = config.buildResult ?: currentBuild.result ?: 'UNKNOWN'
-//     def color
-//     def status
-    
-//     switch(buildResult) {
-//         case 'SUCCESS':
-//             color = '#00FF00'
-//             status = '✅ SUCCESSFUL'
-//             break
-//         case 'FAILURE':
-//             color = '#FF0000'
-//             status = '❌ FAILED'
-//             break
-//         case 'UNSTABLE':
-//             color = '#FFFF00'
-//             status = '⚠️ UNSTABLE'
-//             break
-//         default:
-//             color = '#808080'
-//             status = '❓ UNKNOWN'
-//     }
-    
-//     slackSend(
-//         color: color,
-//         message: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
-//     )
+// def call(String buildResult) {
+//   if ( buildResult == "SUCCESS" ) {
+//     slackSend color: "good", message: "CONGRATULATION: Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful ! more info ${env.BUILD_URL}"
+//   }
+//   else if( buildResult == "FAILURE" ) { 
+//     slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was failed ! more info ${env.BUILD_URL}"
+//   }
+//   else if( buildResult == "UNSTABLE" ) { 
+//     slackSend color: "warning", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was unstable ! more info ${env.BUILD_URL}"
+//   }
+//   else {
+//     slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} its result was unclear ! more info ${env.BUILD_URL}"	
+//   }
 // }
+
+def call(String buildResult) {
+    if (buildResult == "SUCCESS") {
+        slackSend(
+            color: "good",
+            message: "✅ CONGRATULATION: Job ${env.JOB_NAME} build #${env.BUILD_NUMBER} was successful! ${env.BUILD_URL}"
+        )
+    } else if (buildResult == "FAILURE") {
+        slackSend(
+            color: "danger",
+            message: "❌ BAD NEWS: Job ${env.JOB_NAME} build #${env.BUILD_NUMBER} failed! ${env.BUILD_URL}"
+        )
+    } else if (buildResult == "UNSTABLE") {
+        slackSend(
+            color: "warning",
+            message: "⚠️ WARNING: Job ${env.JOB_NAME} build #${env.BUILD_NUMBER} was unstable! ${env.BUILD_URL}"
+        )
+    } else {
+        slackSend(
+            color: "danger",
+            message: "❓ UNKNOWN: Job ${env.JOB_NAME} build #${env.BUILD_NUMBER} result unclear! ${env.BUILD_URL}"
+        )
+    }
+}
