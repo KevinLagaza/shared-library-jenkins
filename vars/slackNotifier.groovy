@@ -1,19 +1,19 @@
 #!/usr/bin/env groovy
 
-// def call(String buildResult) {
-//   if ( buildResult == "SUCCESS" ) {
-//     slackSend color: "good", message: "CONGRATULATION: Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful ! more info ${env.BUILD_URL}"
-//   }
-//   else if( buildResult == "FAILURE" ) { 
-//     slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was failed ! more info ${env.BUILD_URL}"
-//   }
-//   else if( buildResult == "UNSTABLE" ) { 
-//     slackSend color: "warning", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was unstable ! more info ${env.BUILD_URL}"
-//   }
-//   else {
-//     slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} its result was unclear ! more info ${env.BUILD_URL}"	
-//   }
-// }
+def call(String buildResult) {
+  if ( buildResult == "SUCCESS" ) {
+    slackSend color: "good", message: "CONGRATULATION: Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was successful ! more info ${env.BUILD_URL}"
+  }
+  else if( buildResult == "FAILURE" ) { 
+    slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was failed ! more info ${env.BUILD_URL}"
+  }
+  else if( buildResult == "UNSTABLE" ) { 
+    slackSend color: "warning", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} was unstable ! more info ${env.BUILD_URL}"
+  }
+  else {
+    slackSend color: "danger", message: "BAD NEWS:Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} its result was unclear ! more info ${env.BUILD_URL}"	
+  }
+}
 
 // def call(Map config = [:]) {
 //     def buildResult = config.buildResult ?: currentBuild.result ?: 'UNKNOWN'
@@ -43,15 +43,3 @@
 //         message: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
 //     )
 // }
-
-
-def call(String buildResult = null) {
-    def result = buildResult ?: currentBuild.result
-    def color = result == 'SUCCESS' ? '#00FF00' : '#FF0000'
-    def status = result == 'SUCCESS' ? 'SUCCESSFUL' : 'FAILED'
-    
-    slackSend(
-        color: color,
-        message: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
-    )
-}
