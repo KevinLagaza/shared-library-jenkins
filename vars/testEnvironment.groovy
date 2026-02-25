@@ -10,7 +10,7 @@ def call(Map config) {
                 docker ps | grep -E "${APP_NAME}|${DB_CONTAINER_NAME}" &&
                 
                 echo "=== Checking application health ===" &&
-                curl -sf http://localhost:${APP_PORT}/actuator/health || echo "Health check not available" &&
+                curl -sf http://localhost:${APP_PORT} || echo "Health check not available" &&
                 
                 echo "=== Cleanup ===" &&
                 rm -rf /tmp/database &&
