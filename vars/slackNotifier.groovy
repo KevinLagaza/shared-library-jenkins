@@ -45,10 +45,10 @@
 // }
 
 
-def call(Map config = [:]) {
-    def buildResult = config.buildResult ?: currentBuild.result
-    def color = buildResult == 'SUCCESS' ? '#00FF00' : '#FF0000'
-    def status = buildResult == 'SUCCESS' ? 'SUCCESSFUL' : 'FAILED'
+def call(String buildResult = null) {
+    def result = buildResult ?: currentBuild.result
+    def color = result == 'SUCCESS' ? '#00FF00' : '#FF0000'
+    def status = result == 'SUCCESS' ? 'SUCCESSFUL' : 'FAILED'
     
     slackSend(
         color: color,
