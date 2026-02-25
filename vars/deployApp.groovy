@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def call(Map config) {
     echo "========== DEPLOY TO ${config.environment.toUpperCase()} =========="
     
