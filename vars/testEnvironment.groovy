@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def testEnvironment(Map config) {
     echo "========== TESTING ENVIRONMENT =========="
     
