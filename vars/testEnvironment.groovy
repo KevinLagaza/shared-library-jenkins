@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def testEnvironment(Map config) {
+def call(Map config) {
     echo "========== TESTING ENVIRONMENT =========="
     
     sshagent(credentials: [config.sshCredentialId]) {
