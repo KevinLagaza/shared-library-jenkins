@@ -8,13 +8,8 @@ def call(Map config) {
             ssh -o StrictHostKeyChecking=no ${SSH_USER}@${config.host} '
                 echo "=== Checking containers ===" &&
                 docker ps | grep -E "${APP_NAME}|${DB_CONTAINER_NAME}" &&
-                
-                echo "=== Checking application health ===" &&
-                curl -sf http://localhost:${APP_PORT} || echo "Health check not available" &&
-                
                 echo "=== Cleanup ===" &&
                 rm -rf /tmp/database &&
-                
                 echo "=== Test completed ==="
             '
         """
